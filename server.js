@@ -2,6 +2,8 @@ const express = require("express");
 const { v4: uuid } = require("uuid");
 const mongoose = require("mongoose");
 const User = require("./user");
+const dotenv = require("dotenv");
+dotenv.config();
 mongoose
   .connect(process.env.DBURI)
   .then(() => console.log("connected"))
@@ -18,7 +20,7 @@ app.get("/users", async (req, res) => {
 
 app.post("/users", async (req, res) => {
   const { fname, lname } = req.body;
-  const user = await User.create({
+  const user = new User({
     id: uuid(),
     fname,
     lname,
