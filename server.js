@@ -3,6 +3,7 @@ const { v4: uuid } = require("uuid");
 const mongoose = require("mongoose");
 const User = require("./user");
 const dotenv = require("dotenv");
+const cors = require("cors");
 dotenv.config();
 mongoose
   .connect(process.env.DBURI)
@@ -10,7 +11,7 @@ mongoose
   .catch((err) => console.log("error", err));
 
 const app = express();
-
+app.use(cors());
 app.use(express.json());
 
 app.get("/users", async (req, res) => {
